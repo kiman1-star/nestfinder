@@ -30,4 +30,10 @@ export default {
     padding: 30px;
     background-color: #f9f9f9;
 }
+/* Global styles for the app */
+@media (max-width: 768px) {
+    .page {
+        padding: 10px;
+    }
+}
 </style>

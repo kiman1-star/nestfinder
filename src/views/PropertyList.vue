@@ -118,4 +118,15 @@ h2 {
 .btn:hover {
   background: #1e40af;
 }
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .property-grid {
+    grid-template-columns: 1fr; /* stack into one column */
+  }
+}
 </style>
