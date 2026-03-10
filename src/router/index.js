@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import PropertyList from '../views/PropertyList.vue'
 import PropertyDetails from '../views/PropertyDetails.vue'
-import About from '../views/about.vue'
-import Contact from '../views/contact.vue'
+import About from '../views/About.vue'
+import Contact from '../views/Contact.vue'
 
 const routes = [
   { path: '/', name: 'PropertyList', component: PropertyList },
