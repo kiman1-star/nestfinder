@@ -11,11 +11,18 @@
 
     <style scoped>
     .footer {
-        background-color: #1e40af;
+        width:100%;
+        background-color: #2563eb;
         color: white;
         text-align: center;
-        padding: 15px 0;
-        margin-top: 50px;
-        font-size: 18px;
+        padding: 20px 0;
+        margin:0;
     }
+    /* 📱 Mobile tweaks */
+@media (max-width: 768px) {
+  .footer {
+    padding: 15px 10px;       
+    font-size: 14px;           
+  }
+}
 </style>

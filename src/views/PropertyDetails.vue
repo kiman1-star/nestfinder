@@ -1,162 +1,238 @@
 <template>
-  <div class="details">
-    <!-- Title and price -->
-    <h1>{{ property.title }}</h1>
-    <p class="price">Ksh {{ property.price.toLocaleString() }}</p>
-    <!--Image slider-->
-    <Carousel :items-to-show="1" :wrap-around="true">
-      <Slide v-for="(img, index) in property.image" :key="index">
-        <img :src="img" alt="Property image" class="slider-img" />
-      </Slide> 
-    </Carousel>
+  <div v-if="property" class="details">
 
+    <!-- 🔙 Back button -->
+    <button class="back-btn" @click="goBack">
+      <i class="fas fa-arrow-left"></i> Back
+    </button>
 
-    <!-- Info grid -->
-    <div class="info-grid">
-      <p><strong>City:</strong> {{ property.city }}</p>
-      <p><strong>Bedrooms:</strong> {{ property.bedrooms }}</p>
-      <p><strong>Bathrooms:</strong> {{ property.bathrooms }}</p>
-      <p><strong>Sq. Ft.:</strong> {{ property.sqft }}</p>
+    <!-- 🧾 Header -->
+    <div class="header">
+      <h1>{{ property.title }}</h1>
+      <p class="price">Ksh {{ property.price.toLocaleString() }}</p>
     </div>
 
-    <!-- Description -->
-    <p class="description">{{ property.description }}</p>
+    <!-- 🖼️ Image Carousel -->
+    <Carousel :items-to-show="1" :wrap-around="true" class="carousel">
+      <Slide v-for="(img, index) in property.image" :key="index">
+        <img :src="img" alt="Property image" class="slider-img" />
+      </Slide>
+    </Carousel>
 
-    <!-- Amenities -->
-    <h3>Amenities</h3>
-<ul>
-  <li v-for="amenity in property.amenities" :key="amenity">
-    <i class="fas fa-check"></i> {{ amenity }}
-  </li>
-</ul>
-    <ul class="amenities">
-      <li v-for="(amenity, index) in property.amenities" :key="index">
-        <i :class="getAmenityIcon(amenity)"></i> {{ amenity }}
-      </li>
-    </ul>
+    <!-- 📊 Info Cards -->
+    <div class="info-grid">
+      <div class="info-card">📍 {{ property.city }}</div>
+      <div class="info-card">🛏️ {{ property.bedrooms }} Bedrooms</div>
+      <div class="info-card">🛁 {{ property.bathrooms }} Bathrooms</div>
+      <div class="info-card">📐 {{ property.sqft }} sqft</div>
+    </div>
+
+    <!-- 📄 Description -->
+    <div class="section">
+      <h3>Description</h3>
+      <p class="description">{{ property.description }}</p>
+    </div>
+
+    <!-- ✅ Amenities -->
+    <div class="section">
+      <h3>Amenities</h3>
+      <ul class="amenities">
+        <li v-for="(amenity, index) in property.amenities" :key="index">
+          <i :class="getAmenityIcon(amenity)"></i>
+          {{ amenity }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- 🔘 CTA Button -->
+    <button class="contact-btn">Contact Agent</button>
   </div>
+
+  <!-- 😢 Fallback -->
+  <p v-else class="not-found">Property not found 😢</p>
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { properties } from '../data/properties.js'
 
-//Import carousel components
+// Carousel
 import 'vue3-carousel/dist/carousel.css'
-import {Carousel, Slide} from 'vue3-carousel'
+import { Carousel, Slide } from 'vue3-carousel'
 
 const route = useRoute()
-const property = properties.find(p => p.id === Number(route.params.id))
+const router = useRouter()
 
-// Helper function for icons
+// 🛡️ Safe property lookup
+const property = properties.find(
+  p => p.id === Number(route.params.id)
+)
+
+// 🎯 Icon helper
 const getAmenityIcon = (amenity) => {
   switch (amenity.toLowerCase()) {
-    case 'wifi':
-      return 'fas fa-wifi'
-    case 'parking':
-      return 'fas fa-car'
-    case 'kitchen':
-      return 'fas fa-utensils'
-    case 'air conditioning':
-      return 'fas fa-fan'
-    case 'laundry':
-      return 'fas fa-tshirt'
-    default:
-      return 'fas fa-check-circle'
+    case 'wifi': return 'fas fa-wifi'
+    case 'parking': return 'fas fa-car'
+    case 'kitchen': return 'fas fa-utensils'
+    case 'air conditioning': return 'fas fa-fan'
+    case 'laundry': return 'fas fa-tshirt'
+    default: return 'fas fa-check-circle'
   }
+}
+
+// 🔙 Back button logic (safer UX)
+const goBack = () => {
+  router.push('/')
 }
 </script>
 
 <style scoped>
-h1 {
-  font-size: clamp(1.8rem, 4vw, 3rem);      /* very large */
-  font-weight: 900;      /* extra bold */
-  color: #1e3a8a;        /* deep blue */
-  margin-bottom: 10px;
-  text-transform: uppercase; /* optional: makes it stand out */
-  letter-spacing: 1px;   /* adds spacing for dramatic effect */
+/* 🌍 Page background feel */
+body {
+  background: #f1f5f9;
 }
+
+/* 📦 Container */
 .details {
- background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, #f5f7fb, #eef2f7);
+  border-radius: 20px;
+  padding: 25px;
+  max-width: 900px;
+  margin: 20px auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* 🔙 Back button */
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 15px;
+  transition: color 0.2s ease;
+}
+
+.back-btn i {
+  font-size: 18px;
+}
+
+.back-btn:hover {
+  color: #1e40af;
+}
+
+/* 🧾 Header */
+.header {
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 5px;
 }
 
 .price {
   font-size: 22px;
   font-weight: bold;
   color: #2563eb;
-  margin-bottom: 20px;
 }
+
+/* 🖼️ Carousel */
+.carousel {
+  margin: 20px 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
 .slider-img {
   width: 100%;
   height: 300px;
   object-fit: cover;
-  border-radius: 8px;
-  border: 3px solid #2563eb;
-}
-@media (max-width: 768px) {
-  .slider-img {
-    height: 200px;
-  }
 }
 
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.gallery-img {
-  flex: 1 1 calc(33.333% - 10px);
- max-width: calc(33.333% - 10px);
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
-   border: 3px solid #2563eb;
-  transition: transform 0.2s ease;
-}
-.gallery-img:hover {
-  transform: scale(1.05);
-}
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .gallery-img {
-    flex: 1 1 100%; /*stack images full width */
-    max-width: 100%;
-    height: 180px;
-  }
-}
+/* 📊 Info grid */
 .info-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-bottom: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
 }
-@media (max-width: 768px) {
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
+
+.info-card {
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* 📄 Sections */
+.section {
+  margin-top: 25px;
+}
+
+.section h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #111;
 }
 
 .description {
-  margin-bottom: 20px;
+  color: #555;
   line-height: 1.6;
 }
 
+/* ✅ Amenities */
 .amenities {
-  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
   padding: 0;
+  list-style: none;
 }
 
 .amenities li {
-  margin-bottom: 8px;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
 }
 
-.amenities i {
-  margin-right: 8px;
-  color: #2563eb;
+/* 🔘 CTA Button */
+.contact-btn {
+  width: 100%;
+  margin-top: 25px;
+  padding: 14px;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+}
+
+/* 😢 Fallback */
+.not-found {
+  text-align: center;
+  margin-top: 50px;
+  color: #777;
+  font-size: 18px;
 }
 </style>

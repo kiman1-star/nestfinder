@@ -1,14 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import PropertyList from '../views/PropertyList.vue'
+import PropertyList from '../views/propertylist.vue'
 import PropertyDetails from '../views/PropertyDetails.vue'
-import About from '../views/About.vue'
-import Contact from '../views/Contact.vue'
 
 const routes = [
   { path: '/', name: 'PropertyList', component: PropertyList },
   { path: '/property/:id', name: 'PropertyDetails', component: PropertyDetails, props: true },
-  { path: '/about', name: 'About', component: About },
-  { path: '/contact', name: 'Contact', component: Contact }
 ]
 
 const router = createRouter({

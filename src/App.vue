@@ -1,39 +1,65 @@
 <template>
-    <div class="app">
-        <Navbar />
-       <main class="page">
-        <router-view />
-        </main>
-        <Footer />
-        </div>
+  <div id="app">
+    <Navbar />
+
+    <main class="main-content">
+      <router-view />
+    </main>
+
+    <Footer />
+  </div>
 </template>
-        
 
 <script>
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
 
 export default {
-    components: {Navbar, Footer}
+  components: { Navbar, Footer }
 }
 </script>
 
 <style>
-.app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+* {
+  box-sizing: border-box;
+}
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.page {
-    flex: 1;
-    padding: 30px;
-    background-color: #f9f9f9;
+#app {                 /* ✅ use #app instead of .app */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;  /* full viewport height */
 }
-/* Global styles for the app */
+
+.main-content {
+  flex: 1;            /* pushes footer down */
+  padding: 20px;
+  padding-top: 70px;
+  padding-bottom: 60px;
+  background: linear-gradient(to bottom, #f5f7fb, #eef2f7);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: all 0.2s ease;
+}
+
 @media (max-width: 768px) {
-    .page {
-        padding: 10px;
-    }
+  .main-content {
+    padding: 12px;
+  }
+}
+
+footer {
+  width: 100%;
+  background-color: #2563eb;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  margin: 0;          /* removes gaps */
 }
 </style>
