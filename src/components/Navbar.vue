@@ -77,9 +77,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
+  padding: 12px 20px;
   background-color: #fff;
-  border-bottom: 1px solid #eee;
+  
 }
 
 .navbar-left {
@@ -148,5 +148,40 @@ export default {
   padding: 6px;
   border-radius: 4px;
   border: 1px solid #ccc;
+}
+/* ✅ Responsive fixes */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px;
+  }
+
+  .navbar-left {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .navbar-center {
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0;
+    gap: 8px;
+  }
+
+  .search-bar {
+    width: 100%;
+    border-radius: 8px;
+  }
+  .filter-btn {
+    align-self: flex-end;
+    margin-left: 0;
+  }
+
+  .filters-panel {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
 }
 </style>
