@@ -1,6 +1,6 @@
 <template>
     <footer class="footer">
-        <p>&copy; 2024 Nestfinder. All rights reserved.</p>
+        <p>&copy; 2026 Nestfinder. All rights reserved.</p>
         <P>contact: info@nestfinder.com</P>
     </footer>
     </template>

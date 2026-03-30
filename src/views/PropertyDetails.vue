@@ -45,7 +45,9 @@
     </div>
 
     <!-- 🔘 CTA Button -->
-    <button class="contact-btn">Contact Agent</button>
+    <router-link to="/contact" class="contact-btn">
+      Contact Agent
+    </router-link>
   </div>
 
   <!-- 😢 Fallback -->
@@ -210,6 +212,7 @@ h1 {
 
 /* 🔘 CTA Button */
 .contact-btn {
+  display: block;;
   width: 100%;
   margin-top: 25px;
   padding: 14px;
@@ -221,6 +224,7 @@ h1 {
   border-radius: 12px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
 }
 
 .contact-btn:hover {

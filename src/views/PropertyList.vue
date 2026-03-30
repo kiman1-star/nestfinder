@@ -31,7 +31,7 @@
         </div>
 
         <!-- 🔘 Button -->
-        <router-link :to="`/property/${property.id}`">
+        <router-link :to="`/details/${property.id}`">
           <button class="btn">View Details</button>
         </router-link>
       </div>
